@@ -22,9 +22,18 @@
     <!-- End Banner Area -->
 
     <!--================Cart Area =================-->
+
     <section class="cart_area">
         <div class="container">
+
             <div class="cart_inner">
+                {% if not cart_items %}
+                    <h2 class="text-center">Your Shopping Cart Is Empty</h2>
+                <br>
+                <div class="text-center">
+                    <a href="{% url 'category'%}" class="btn btn-primary">Continue Shopping</a>
+                </div>
+                {% else %}
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -36,156 +45,42 @@
                             </tr>
                         </thead>
                         <tbody>
+                            {% for cart_item in cart_items %}
                             <tr>
                                 <td>
                                     <div class="media">
                                         <div class="d-flex">
-                                            <img src="{% static 'img/cart.jpg' %}" alt="">
+                                            <img src="{{ cart_item.product.images.url }}" alt="">
                                         </div>
                                         <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
+                                            <a href="{{cart_item.product.get_url}}"><p>{{ cart_item.product.product_name  }}</p></a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <h5>$360.00</h5>
+                                    <h5>${{ cart_item.sub_total }}</h5>
                                 </td>
                                 <td>
+                                    
                                     <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
+                                        <div class="input-group input-spinner">
+                                            <div class="input-group-prepend">
+                                                <a href="{% url 'remove_cart' cart_item.product.id  %}" class="btn btn-light" type="button" id="button-plus"><i class="fa fa-minus"></i></a>
+                                            </div>
+                                            <input type="text" class="for-control" value="{{ cart_item.quantity }}">
+                                            <div class="input-group-prepend">
+                                                <a href="{% url 'add_cart' cart_item.product.id  %}" class="btn btn-light" type="button" id="button-minus"><i class="fa fa-plus"></i></a>
+                                            </div>
+                                        </div> 
                                     </div>
-                                </td>
-                                <td>
-                                    <h5>$720.00</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="{% static 'img/cart.jpg' %}" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$360.00</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$720.00</h5>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="media">
-                                        <div class="d-flex">
-                                            <img src="{% static 'img/cart.jpg' %}" alt="">
-                                        </div>
-                                        <div class="media-body">
-                                            <p>Minimalistic shop for multipurpose use</p>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$360.00</h5>
-                                </td>
-                                <td>
-                                    <div class="product_count">
-                                        <input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:"
-                                            class="input-text qty">
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-                                            class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-                                        <button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-                                            class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-                                    </div>
-                                </td>
-                                <td>
-                                    <h5>$720.00</h5>
-                                </td>
-                            </tr>
-                            <tr class="bottom_button">
-                                <td>
-                                    <a class="gray_btn" href="#">Update Cart</a>
-                                </td>
-                                <td>
 
                                 </td>
                                 <td>
-
+                                    <h5>${{ total }}</h5>
                                 </td>
-                                <td>
-                                    <div class="cupon_text d-flex align-items-center">
-                                        <input type="text" placeholder="Coupon Code">
-                                        <a class="primary-btn" href="#">Apply</a>
-                                        <a class="gray_btn" href="#">Close Coupon</a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <h5>Subtotal</h5>
-                                </td>
-                                <td>
-                                    <h5>$2160.00</h5>
-                                </td>
-                            </tr>
-                            <tr class="shipping_area">
-                                <td>
-
-                                </td>
-                                <td>
-
-                                </td>
-                                <td>
-                                    <h5>Shipping</h5>
-                                </td>
-                                <td>
-                                    <div class="shipping_box">
-                                        <ul class="list">
-                                            <li><a href="#">Flat Rate: $5.00</a></li>
-                                            <li><a href="#">Free Shipping</a></li>
-                                            <li><a href="#">Flat Rate: $10.00</a></li>
-                                            <li class="active"><a href="#">Local Delivery: $2.00</a></li>
-                                        </ul>
-                                        <h6>Calculate Shipping <i class="fa fa-caret-down" aria-hidden="true"></i></h6>
-                                        <select class="shipping_select">
-                                            <option value="1">Bangladesh</option>
-                                            <option value="2">India</option>
-                                            <option value="4">Pakistan</option>
-                                        </select>
-                                        <select class="shipping_select">
-                                            <option value="1">Select a State</option>
-                                            <option value="2">Select a State</option>
-                                            <option value="4">Select a State</option>
-                                        </select>
-                                        <input type="text" placeholder="Postcode/Zipcode">
-                                        <a class="gray_btn" href="#">Update Details</a>
-                                    </div>
-                                </td>
-                            </tr>
+                            </tr> 
+                            {% endfor %}
+                            
                             <tr class="out_button_area">
                                 <td>
 
@@ -198,7 +93,7 @@
                                 </td>
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
-                                        <a class="gray_btn" href="#">Continue Shopping</a>
+                                        <a class="gray_btn" href="{% url 'category'%}">Continue Shopping</a>
                                         <a class="primary-btn" href="#">Proceed to checkout</a>
                                     </div>
                                 </td>
@@ -206,9 +101,12 @@
                         </tbody>
                     </table>
                 </div>
+                {% endif %}
             </div>
+            
         </div>
     </section>
+
     <!--================End Cart Area =================-->
 
     {% endblock %}

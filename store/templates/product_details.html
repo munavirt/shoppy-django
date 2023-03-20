@@ -52,17 +52,16 @@
 							{% if single_product.stock <= 0 %}
 								<a class="danger-btn" href="#">Out Of Stcok</a>
 								{% else %}
-								<div class="product_count">
-									<label for="qty">Quantity:</label>
-									<input type="text" name="qty" id="sst" maxlength="12" value="1" title="Quantity:" class="input-text qty">
-									<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst )) result.value++;return false;"
-									 class="increase items-count" type="button"><i class="lnr lnr-chevron-up"></i></button>
-									<button onclick="var result = document.getElementById('sst'); var sst = result.value; if( !isNaN( sst ) &amp;&amp; sst > 0 ) result.value--;return false;"
-									 class="reduced items-count" type="button"><i class="lnr lnr-chevron-down"></i></button>
-								</div> <br> 
-									<br><a class="primary-btn" href="#">Add to Cart</a>
-									<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-									<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+									{% if in_cart %}
+									<br><a href="" class="btn btn-success"><span class="text">Added to Cart</span><i class="fas fa-check"></i></a> 
+									<a href="{% url 'cart' %}" class="btn btn-outline-primary"><span class="text">View Cart</span><i class="fas fa-eye"></i></a> 
+									{% else %}
+										<br><a class="primary-btn" href="{% url 'add_cart' single_product.id %}">Add to Cart</a>
+										<a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
+										<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a>
+									{% endif%}
+
+
 								{% endif%}
 
 						</div>
@@ -71,7 +70,7 @@
 			</div>
 		</div>
 	</div>
-	<!--================End Single Product Area =================-->
+	<!--================End Sin le Product Area =================-->
 
 	<!--================Product Description Area =================-->
 	<section class="product_description_area">

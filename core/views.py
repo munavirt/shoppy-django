@@ -11,10 +11,6 @@ def home(request):
     }
     return render(request,'index.html',context)
 
-def cart(request):
-    return render(request,'cart.html')
-
-
 
 def blog(request):
     return render(request,'index.html')
@@ -44,9 +40,3 @@ def tracking(request):
     return render(request,'tracking.html')
 
 
-def login(request):
-    return render(request,'login.html')
-
-
-def signup(request):
-    return render(request,'register.html')

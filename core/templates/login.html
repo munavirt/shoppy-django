@@ -5,6 +5,7 @@
 {% block content%}
 
 		<!-- Start Banner Area -->
+		<!-- Start Banner Area -->
 		<section class="banner-area organic-breadcrumb">
 			<div class="container">
 				<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
@@ -20,46 +21,48 @@
 		</section>
 		<!-- End Banner Area -->
 
-	<!--================Login Box Area =================-->
-	<section class="login_box_area section_gap">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6">
-					<div class="login_box_img">
-						<img class="img-fluid" src="{% static 'img/login.jpg' %}" alt="">
-						<div class="hover">
-							<h4>New to our website?</h4>
-							<p>There are advances being made in science and technology everyday, and a good example of this is the</p>
-							<a class="primary-btn" href="{% url 'signup' %}">Create an Account</a>
-						</div>
+<!--================Login Box Area =================-->
+
+<section class="section-content padding-y">
+
+<!-- ============================ COMPONENT REGISTER   ================================= -->
+	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
+      <article class="card-body">
+		{% include 'alert.html' %}
+    
+		<header class="mb-4"><h4 class="card-title text-center">Sign in</h4></header>
+		{% include 'alert.html' %}
+		<form action="{% url 'login' %}" method="POST">
+      	{% csrf_token %}
+
+
+				<div class="form-row">
+					<div class="col form-group">
+						<input type="email" name="email" class="form-control" id="" placeholder="Email Address">
+					</div> <!-- form-group end.// -->
+					<div class="col form-group">
+						<input type="password" name="password" class="form-control" id="" placeholder="Password">
 					</div>
-				</div>
-				<div class="col-lg-6">
-					<div class="login_form_inner">
-						<h3>Log in to enter</h3>
-						<form class="row login_form" action="" method="post" id="contactForm" novalidate="novalidate">
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Username" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Username'">
-							</div>
-							<div class="col-md-12 form-group">
-								<input type="text" class="form-control" id="name" name="name" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-							</div>
-							<div class="col-md-12 form-group">
-								<div class="creat_account">
-									<input type="checkbox" id="f-option2" name="selector">
-									<label for="f-option2">Keep me logged in</label>
-								</div>
-							</div>
-							<div class="col-md-12 form-group">
-								<button type="submit" value="submit" class="primary-btn">Log In</button>
-								<a href="#">Forgot Password?</a>
-							</div>
-						</form>
+
+					<br>
+
+					<br><div class="form-group">
+						<a href="#" class="float-right">Forgot password</a>
 					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-primary btn-block">Login</button>
+					</div>
+
+			</form>
+		</article><!-- card-body.// -->
+    </div> <!-- card .// -->
+    <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Signup</a></p>
+    <br><br>
+<!-- ============================ COMPONENT REGISTER  END.// ================================= -->
+
+
+</section>
 	<!--================End Login Box Area =================-->
 
 	
