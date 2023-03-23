@@ -1,11 +1,11 @@
 from django.shortcuts import render, redirect
 from .forms import RegistrationForm
 from .models import Account
-from django.contrib import messages,auth
-# from django.contrib.auth import authenticate
+from django.contrib import messages, auth
+from django.contrib.auth import authenticate, login
+
 
 from django.http import HttpResponse
-
 
 
 
@@ -42,12 +42,11 @@ def login(request):
         user = auth.authenticate(email=email, password=password)
         
         if user is not None:
-            login(request, user)
+            auth.login(request,user)
             return redirect('home')
         
         else:
             messages.error(request, 'Invalid Login Credentials')
-            return redirect('login')
     return render(request, 'login.html')
         
 def logout(request):

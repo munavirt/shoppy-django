@@ -76,11 +76,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'shoppy.wsgi.application'
+
+
 AUTH_USER_MODEL = 'accounts.Account'
-AUTHENTICATION_BACKENDS = (
-        'django.contrib.auth.backends.ModelBackend',
-        'allauth.account.auth_backends.AuthenticationBackend',
-    )
+
 
 # ASGI_APPLICATION = "multiproject.routing.application"
 
