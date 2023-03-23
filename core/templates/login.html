@@ -28,12 +28,11 @@
 <!-- ============================ COMPONENT REGISTER   ================================= -->
 	<div class="card mx-auto" style="max-width:520px; margin-top:40px;">
       <article class="card-body">
-		{% include 'alert.html' %}
     
 		<header class="mb-4"><h4 class="card-title text-center">Sign in</h4></header>
 		{% include 'alert.html' %}
 		<form action="{% url 'login' %}" method="POST">
-      	{% csrf_token %}
+      		{% csrf_token %}
 
 
 				<div class="form-row">
@@ -54,10 +53,10 @@
 						<button type="submit" class="btn btn-primary btn-block">Login</button>
 					</div>
 
-			</form>
+		</form>
 		</article><!-- card-body.// -->
     </div> <!-- card .// -->
-    <p class="text-center mt-4">Have an account? <a href="{% url 'login' %}">Signup</a></p>
+    <p class="text-center mt-4">Have an account? <a href="{% url 'register' %}">Signup</a></p>
     <br><br>
 <!-- ============================ COMPONENT REGISTER  END.// ================================= -->
 

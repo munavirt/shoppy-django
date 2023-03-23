@@ -47,7 +47,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -77,6 +76,13 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'shoppy.wsgi.application'
+AUTH_USER_MODEL = 'accounts.Account'
+AUTHENTICATION_BACKENDS = (
+        'django.contrib.auth.backends.ModelBackend',
+        'allauth.account.auth_backends.AuthenticationBackend',
+    )
+
+# ASGI_APPLICATION = "multiproject.routing.application"
 
 
 # Database
@@ -142,3 +148,7 @@ from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
+
+# SMTP configuration
+
+# SMTP configuration

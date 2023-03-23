@@ -49,8 +49,8 @@
                             <tr>
                                 <td>
                                     <div class="media">
-                                        <div class="d-flex">
-                                            <img src="{{ cart_item.product.images.url }}" alt="">
+                                        <div class="d-flex" >
+                                            <img  src="{{ cart_item.product.images.url }}" style="width: 80px;" alt="">
                                         </div>
                                         <div class="media-body">
                                             <a href="{{cart_item.product.get_url}}"><p>{{ cart_item.product.product_name  }}</p></a>
@@ -94,7 +94,7 @@
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="{% url 'category'%}">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+                                        <a class="primary-btn" href="{% url 'checkout' %}">Proceed to checkout</a>
                                     </div>
                                 </td>
                             </tr>
