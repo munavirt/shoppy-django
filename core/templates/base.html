@@ -75,7 +75,8 @@
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Pages</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="{% url 'login'%}">Login</a></li>
+
+										<!-- <li class="nav-item"><a class="nav-link" href="{% url 'login'%}">Login</a></li> -->
 									<li class="nav-item"><a class="nav-link" href="{% url 'tracking'%}">Tracking</a></li>
 									<li class="nav-item"><a class="nav-link" href="{% url 'elements'%}">Elements</a></li>
 								</ul>
@@ -87,10 +88,27 @@
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li><a href="">Logout</a></li>
-						</ul>
+						</ul> 
+						&nbsp;  &nbsp;  &nbsp; 
+						<div class="che">
+						{% if user.id is None%}
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href=""><span>Welcome</span> &nbsp;   Guest</a></li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="{% url 'login'%}">Login</a></li>
+							</ul>
+						</div>
+						<div class="chi">
+						{% else %}
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="{% url 'dashboard'%}"><span>Welcome</span> &nbsp;  {{user.first_name}}</a></li>
+							</ul>
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="{% url 'logout'%}">Logout</a></li>
+							</ul>
+						{%endif%}
+					</div>
 					</div>
 				</div>
 			</nav>
