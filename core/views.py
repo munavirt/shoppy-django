@@ -1,13 +1,15 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
-from store.models import Product
+from store.models import Product, Banner
 # Create your views here.
 
 def home(request):
     products = Product.objects.all().filter(is_available=True)
+    banners = Banner.objects.all().filter(is_available=True)
     
     context = {
-        'products':products
+        'products':products,
+        'banners' : banners
     }
     return render(request,'index.html',context)
 

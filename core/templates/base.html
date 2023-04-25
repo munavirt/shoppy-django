@@ -31,6 +31,11 @@
 	<link rel="stylesheet" href="{% static 'css/ion.rangeSlider.skinFlat.css' %}" />
 	<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
 	<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+
+		
+    <script src="https://www.paypal.com/sdk/js?client-id=Ac4N2XCze-0Epo6KNb9DzgKHsfp0AH7D414KyOKkabl5WclyLcNmmSSPUtkXjjEtzj-G0e9_-KKTS-Hh&currency=USD"></script>
+
 </head>
 
 <body>
@@ -84,7 +89,7 @@
 							<li class="nav-item"><a class="nav-link" href="{% url 'contact'%}">Contact</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
+							<li class="nav-item"><a href="#" class="cart"><span class="ti-bag">{{cart_count}}</span></a></li>
 							<li class="nav-item">
 								<button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
 							</li>
@@ -223,7 +228,8 @@
 		</div>
 	</footer>
 	<!-- End footer Area -->
-
+	
+{% block scripts %}
 	<script src="{% static 'js/vendor/jquery-2.2.4.min.js' %}"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
 	 crossorigin="anonymous"></script>
@@ -235,10 +241,16 @@
 	<script src="{% static 'js/countdown.js' %}"></script>
 	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
 	<script src="{% static 'js/owl.carousel.min.js' %} "></script>
+
+	<!-- paypal script -->
+	<script src="https://www.paypal.com/sdk/js?client-id=Ac4N2XCze-0Epo6KNb9DzgKHsfp0AH7D414KyOKkabl5WclyLcNmmSSPUtkXjjEtzj-G0e9_-KKTS-Hh&currency=USD"></script>
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
 	<!--gmaps Js-->
 	<script src="{% static 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="{% static 'js/gmaps.min.js' %}"></script>
 	<script src="{% static 'js/main.js' %}"></script>
+{%endblock%}
 </body>
 
 </html>

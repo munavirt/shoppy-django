@@ -3,13 +3,37 @@
 
 {%block content %}
 
+
+		<!-- Start Banner Area -->
+		<!-- Start Banner Area -->
+		<section class="banner-area organic-breadcrumb">
+			<div class="container">
+				<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+					<div class="col-first">
+						<h1>Login/Register</h1>
+						<nav class="d-flex align-items-center">
+							<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
+							<a href="category.html">Login/Register</a>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- End Banner Area -->
+
+<!--================Login Box Area =================-->
+
+<section class="section-content padding-y">
+
+
+
 <aside class="col-md-3">
     <!--   SIDEBAR   -->
     <ul class="list-group">
-      <a class="list-group-item " {% if '/user_dashboard/' in request.path %} style="background-color: #0A66C2; color:white;" {% endif %} href="{% url 'user_dashboard' %}"> Dashboard </a>
-      <a class="list-group-item " href="{% url 'my_orders' %}" {% if '/my_orders/' in request.path %} style="background-color: #0A66C2; color:white;" {% endif %} {% if '/order_details/' in request.path %} style="background-color: #0A66C2; color:white;" {% endif %}> My Orders </a>
-      <a class="list-group-item " href="{% url 'edit_profile' %}" {% if '/edit_profile/' in request.path %} style="background-color: #0A66C2; color:white;" {% endif %}> Edit Profile </a>
-      <a class="list-group-item " href="{% url 'change_password' %}" {% if '/change_password/' in request.path %} style="background-color: #0A66C2; color:white;" {% endif %}> Change Password </a>
+      <a class="list-group-item " style="background-color: #0A66C2; color:white;" > Dashboard </a>
+      <a class="list-group-item " href="" style="background-color: #0A66C2; color:white;" style="background-color: #0A66C2; color:white;"> My Orders </a>
+      <a class="list-group-item " href="" style="background-color: #0A66C2; color:white;"> Edit Profile </a>
+      <a class="list-group-item " href=""  style="background-color: #0A66C2; color:white;"> Change Password </a>
     </ul>
     <br>
     <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>
@@ -36,11 +60,11 @@
 			<div class="col-md-6">
 				<div class="card" style="text-align:center;">
 					<div class="card-body">
-						<h5 class="card-title">Total Orders : <strong> {{order_count}}</strong></h5> 
+						<h5 class="card-title">Total Orders : <strong></strong></h5> 
 							
 						
 						
-						<a href="{% url 'my_orders' %}" class="btn btn-outline-success btn-sm">View Orders</a>
+						<a href="" class="btn btn-outline-success btn-sm">View Orders</a>
 					</div>
 				</div>
 			</div>

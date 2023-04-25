@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'store',
     'carts',
     'accounts',
+    'orders',
     'bootstrap5',
+    'paypal.standard.ipn',
     
 ]
 
@@ -152,7 +154,23 @@ MESSAGE_TAGS = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'isitreallyneeded3@gmail.com'
-EMAIL_HOST_PASSWORD = 'cbbpddfuyoxvbqdf'
+EMAIL_HOST_USER = 'developer.munavirt@gmail.com'
+EMAIL_HOST_PASSWORD = 'echgoevgcucigvox'
 EMAIL_USE_TLS = True
 # SMTP configuration
+
+
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51Mx4vRSItu8Z9cJDFCw4wPgqyG78uIVm8TuARV9hKgIKKj5ehd1vj1RzVQyJ9waP3IlbKeghS1iahNrbP8TpvPUv00BKHYBVME'
+
+STRIPE_SECRET_KEY = 'sk_test_51Mx4vRSItu8Z9cJDzKNXZZgiLzWSvPMFbIaqedxjkIxYUISISaDEgorNFeCBin7FxA3afrpbKgYc5eSUlMwEeqGY00FFV25Qh7'
+
+
+
+BACKEND_DOMAIN='http://127.0.0.1:8000/'
+PAYMENT_SUCCESS_URL='http://127.0.0.1:8000/success/'
+PAYMENT_CANCEL_URL='http://127.0.0.1:8000/cancel/'
+
+
+
+RAZOR_KEY_ID = 'rzp_test_MPWpuoN6V0IZuk'
+RAZOR_KEY_SECRET = 'iSObOXmeFlFgVSBFrX54bCja'
