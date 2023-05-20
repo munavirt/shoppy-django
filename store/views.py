@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from .models import Product, ProductGallery
 from category.models import Category
 from carts.views import _cart_id
 from carts.models import CartItem
@@ -14,7 +14,7 @@ def category(request, category_slug=None):
     if category_slug != None:
         categories = get_object_or_404(Category,slug=category_slug)
         products = Product.objects.filter(category=categories, is_available=True)
-        paginator = Paginator(products, 1)
+        paginator = Paginator(products, 3)
         page = request.GET.get('page')
         paged_products = paginator.get_page(page)
         product_count = products.count()
@@ -33,6 +33,12 @@ def category(request, category_slug=None):
     } 
     return render(request,'category.html',context)
 
+def latest_products(request):
+    products = Product.objects.order_by('-created_at')[:10]
+    context = {
+        'products' : products,
+    }
+    return render(request, 'latest_products.html',context)
 
 def product_details(request, category_slug,product_slug):
     try:
@@ -41,10 +47,14 @@ def product_details(request, category_slug,product_slug):
         
     except Exception as e:
         raise e   
+    
+    
+    product_gallery = ProductGallery.objects.filter(product_id=single_product.id)
      
     context = {
         'single_product': single_product,
         'in_cart': in_cart,
+        'product_gallery' : product_gallery
     }    
     return render(request, 'product_details.html',context )
 

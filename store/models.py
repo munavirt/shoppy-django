@@ -1,6 +1,7 @@
 from django.db import models
 from category.models import Category 
 from django.urls import reverse
+from django.utils.html import mark_safe
 
 
 from accounts.models import Account
@@ -18,6 +19,7 @@ class Product(models.Model):
     category        = models.ForeignKey(Category, on_delete=models.CASCADE)
     created_date    = models.DateTimeField(auto_now_add=True)
     modified_date   = models.DateTimeField(auto_now=True)
+    is_featured     = models.BooleanField(default=False)
     
     
     def get_url(self):
@@ -25,6 +27,11 @@ class Product(models.Model):
     
     def __str__(self):
         return self.product_name
+    
+    def is_stock_zero(self):
+        if self.stock == 0:
+            return mark_safe('<a href="{}">{} - out of stock</a>'.format(self.get_url(), self.product_name))
+        return ''
     
 
 
@@ -85,3 +92,18 @@ class Banner(models.Model):
   
     def __str__(self):
         return self.banner_name
+    
+    
+class ProductGallery(models.Model):
+    
+    product = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='store/products', max_length=255)
+    
+    def __str__(self):
+        return self.product.product_name
+    
+    class Meta:
+        verbose_name = 'productgallery'
+        verbose_name_plural = 'product gallery'
+        
+        

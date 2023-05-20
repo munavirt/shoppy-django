@@ -3,7 +3,7 @@
 
 {% block content %}
 	<!-- Start Banner Area -->
-	<section class="banner-area organic-breadcrumb">
+	<section class="banner-area organic-breadcrumb" >
 		<div class="container">
 			<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 				<div class="col-first">
@@ -21,21 +21,17 @@
 
 	<!--================Single Product Area =================-->
 
-	<div class="product_image_area">
+	<div class="product_image_area" style="margin-bottom: 80px;">
 		<div class="container">
 			
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
 					<div class="s_Product_carousel">
-						<div class="single-prd-item">
-							<img class="img-fluid" src="{{single_product.images.url}}" alt="">
+						{% for i in product_gallery %}
+						<div class="single-prd-item" width="50px">
+							<img class="img-fluid" src="{{i.image.url}}"  alt="">
 						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div>
-						<div class="single-prd-item">
-							<img class="img-fluid" src="img/category/s-p1.jpg" alt="">
-						</div>
+						{% endfor %}
 					</div>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
@@ -45,14 +41,18 @@
 						<h2>${{single_product.price}}</h2>
 						<ul class="list">
 							<li><a class="active" href="#"><span>Category</span> : Household</a></li>
+							{% if single_product.stock <= 0 %}
+							<li><a href="#"><span>Availibility</span> : Out Stock</a></li>
+							{%else%}
 							<li><a href="#"><span>Availibility</span> : In Stock</a></li>
+							{%endif%}
 						</ul>
 						<p>{{single_product.description}}</p>
 					</form>
 						
 						<div class="card_area d-flex align-items-center">
 							{% if single_product.stock <= 0 %}
-								<a class="danger-btn" href="#">Out Of Stcok</a>
+							<button type="button" class="btn btn-danger">Out Of Stock</button>
 								{% else %}
 									{% if in_cart %}
 									<br><a href="" class="btn btn-success"><span class="text">Added to Cart</span><i class="fas fa-check"></i></a> 
@@ -75,7 +75,7 @@
 	<!--================End Sin le Product Area =================-->
 
 	<!--================Product Description Area =================-->
-	<section class="product_description_area">
+	<!-- <section class="product_description_area">
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<li class="nav-item">
@@ -396,11 +396,11 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!--================End Product Description Area =================-->
 
 	<!-- Start related-product Area -->
-	<section class="related-product-area section_gap_bottom">
+	<!-- <section class="related-product-area section_gap_bottom">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-lg-6 text-center">
@@ -533,7 +533,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<!-- End related-product Area -->
 
 

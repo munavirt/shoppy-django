@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm
-from .models import Account
+from .forms import RegistrationForm, UserForm, UserProfileForm
+from .models import Account, UserProfile
 from django.contrib import messages, auth
 from django.contrib.auth import authenticate, login
 from django.views.decorators.cache import never_cache
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
+
+
+
+from orders.models import Order, OrderProduct
 
 # Verification email
 from django.contrib.sites.shortcuts import get_current_site 
@@ -20,6 +24,9 @@ from django.contrib.auth import update_session_auth_hash
 
 from carts.views import _cart_id
 from carts.models import Cart, CartItem
+
+import io
+import weasyprint
 
 
 def register(request):
@@ -77,7 +84,7 @@ def activate(request, uidb64, token):
         return redirect('login')
     else:
         messages.error(request, 'Invalid activation link')
-        return redirect('signup')
+        return redirect('register')
 
 @never_cache
 def login(request):
@@ -184,11 +191,133 @@ def resetPassword(request):
             return redirect('resetPassword')
     else:
         return render(request, 'reset_password.html')
-
-@login_required
-def dashboard(request):
     
-    return render(request,'dashboard.html')
+    
+
+@login_required(login_url='login')
+def dashboard(request):
+    orders = Order.objects.order_by('-created_at').filter(user_id=request.user.id, is_ordered=True)
+    orders_count = orders.count()
+    try:
+        userprofile = UserProfile.objects.get(user_id=request.user.id)
+    except UserProfile.DoesNotExist:
+        userprofile = None
+    
+    context = {
+        'orders_count' : orders_count,
+        'userprofile' : userprofile,
+    }
+    
+    return render(request,'dashboard.html', context)
 
 
+@login_required(login_url='login')
+def my_orders(request):
+    orders = Order.objects.filter(user=request.user, is_ordered=True).order_by('-created_at')
 
+    context = {
+        'orders' : orders
+    }
+    return render(request,'my_orders.html', context)
+
+
+@login_required(login_url='login')
+def edit_profile(request):
+    
+    userprofile = get_object_or_404(UserProfile, user=request.user)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = UserProfileForm(request.POST, request.FILES, instance=userprofile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(request, 'Your Profile Has Been Updates')
+            return redirect('edit_profile')
+        
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = UserProfileForm(instance=userprofile) 
+    
+    
+    context = {
+        'user_form' : user_form,
+        'profile_form' : profile_form,
+        'userprofile' : userprofile
+    }   
+    return render(request,'edit_profile.html', context)
+
+
+@login_required(login_url='login')
+def change_password(request):
+    
+    if request.method == "POST":
+        current_password = request.POST['current_password']
+        new_password = request.POST['new_password']
+        confirm_password = request.POST['confirm_password']
+        
+        user = Account.objects.get(username__exact=request.user.username)
+        
+        if new_password == confirm_password:
+            success = user.check_password(current_password)
+            if success:
+                user.set_password(new_password)
+                user.save()
+                messages.success(request, 'Password Updated Successfully')
+                return redirect('change_password')
+            else:
+                messages.error(request, 'Please enter valid current password')
+                return redirect('change_password')
+        else:
+            messages.error(request, 'Password does not match')
+            return redirect('change_password')
+    return render(request,'change_password.html')
+
+
+@login_required(login_url='login')
+def order_detail(request, order_id):
+
+    order_detail = OrderProduct.objects.filter(order__order_number=order_id)
+    order = Order.objects.get(order_number=order_id)
+    subtotal = 0
+    for i in order_detail:
+        subtotal += i.product_price * i.quantity
+        
+    context = {
+        'order_detail' : order_detail,
+        'order' : order,
+        'subtotal' : subtotal,
+    }
+    return render(request, 'order_detail.html', context)
+
+
+def order_export_pdf(request, order_number):
+    try:
+        order = Order.objects.get(order_number=order_number, is_ordered=True)
+        ordered_products = OrderProduct.objects.filter(order_id=order.id)
+
+        subtotal = 0
+        for i in ordered_products:
+            subtotal += i.product_price * i.quantity
+
+        payment = Payment.objects.get(payment_id=order.payment.payment_id)
+
+        context = {
+            'order': order,
+            'ordered_products': ordered_products,
+            'order_number': order_number,
+            'transID': payment.payment_id,
+            'payment': payment,
+            'subtotal': subtotal,
+            'css_file': static('css/main.css'),
+        }
+
+        html_string = render_to_string('invoice_pdf.html', context)
+        html = weasyprint.HTML(string=html_string)
+        pdf_bytes = html.write_pdf()
+
+        response = HttpResponse(pdf_bytes, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename=invoice.pdf'
+        return response
+
+    except (Payment.DoesNotExist, Order.DoesNotExist):
+        return redirect('home')

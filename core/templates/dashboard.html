@@ -10,10 +10,10 @@
 			<div class="container">
 				<div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
 					<div class="col-first">
-						<h1>Login/Register</h1>
+						<h1>Dashboard</h1>
 						<nav class="d-flex align-items-center">
 							<a href="index.html">Home<span class="lnr lnr-arrow-right"></span></a>
-							<a href="category.html">Login/Register</a>
+							<a href="category.html">Dashboard</a>
 						</nav>
 					</div>
 				</div>
@@ -25,68 +25,44 @@
 
 <section class="section-content padding-y">
 
+	<section class="section-conten padding-y bg" style="margin-top: 50px; margin-bottom:50px">
 
-
-<aside class="col-md-3">
-    <!--   SIDEBAR   -->
-    <ul class="list-group">
-      <a class="list-group-item " style="background-color: #0A66C2; color:white;" > Dashboard </a>
-      <a class="list-group-item " href="" style="background-color: #0A66C2; color:white;" style="background-color: #0A66C2; color:white;"> My Orders </a>
-      <a class="list-group-item " href="" style="background-color: #0A66C2; color:white;"> Edit Profile </a>
-      <a class="list-group-item " href=""  style="background-color: #0A66C2; color:white;"> Change Password </a>
-    </ul>
-    <br>
-    <a class="btn btn-light btn-block" href="{% url 'logout' %}"> <i class="fa fa-power-off"></i> <span class="text">Log out</span> </a>
-    <!--   SIDEBAR .//END   -->
-  </aside>
-
-
-  </style>
-
-
-{% include 'alert.html' %}
-<div class="container">
-	<div class="row">
-	
-	<main class="col-md-9">
-		<article class="card">
-		<header class="card-header">
-			Hello
-			<strong><span class="text-black">{{user.first_name|capfirst}} {{user.last_name}} ! </span></strong>
-		</header>
-		<div class="card-body">
+		<div class="container">
 			<div class="row">
+			{% include 'dashboard_sidebar.html' %}
+			<main class="col-md-9">
+				<article class="card">
+				<header class="card-header">
+					<strong class="d-inline-block mr-3">Logged in as : </strong>
+					<span> {{user.full_name}}</span>
+				</header>
+				<div class="card-body">
+					<div class="row"> 
+						<div class="col-md-6">
+							<div class="card" style="text-align: center;">
+								<div class="card-body">
+									<h5 class="card-title">Total Orderes</h5>
+									<h4>{{orders_count}}</h4>
+									<a href="{% url 'my_orders' %}">View Orders</a>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="card" style="text-align: center;" >
+								<div class="card-body" style="margin-bottom: 0;">
+									<img src="{{userprofile.profile_picture.url}}" width="50" height="50" style="border-radius: 50%;" alt="" srcset="">
+									<p class="mb-0">{{user.email}}</p>
+									<p>{{user.phone_number}}</p>
+								</div>
+							</div>
+						</div>
+					</div> <!-- row.// -->
+				</div> <!-- card-body .// -->
+				</article> <!-- order-group.// --> 
+			</main>
+		</div> <!-- row.// -->
+		</div>
+	</section>
 
-			<div class="col-md-6">
-				<div class="card" style="text-align:center;">
-					<div class="card-body">
-						<h5 class="card-title">Total Orders : <strong></strong></h5> 
-							
-						
-						
-						<a href="" class="btn btn-outline-success btn-sm">View Orders</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="card" style="text-align:center;">
-					<div class="card-body">
-						
-						<p class="mb-0">{{user.email}}</p>
-						<p>{{user.phone_number}}</p>
-					</div>
-				</div>
-			</div>
-
-			</div> <!-- row.// -->
-		</div> <!-- card-body .// -->
-
-		</article> <!-- order-group.// -->
-	</main>
-</div> <!-- row.// -->
-</div>
-
-
-</section>
 
 {% endblock %}

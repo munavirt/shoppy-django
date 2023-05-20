@@ -25,6 +25,7 @@ class Order(models.Model):
         ('Accepted','Accepted'),
         ('Completed','Completed'),
         ('Cancelled','Cancelled'),
+        
     )
     
     user = models.ForeignKey(Account, on_delete=models.SET_NULL, null=True)
@@ -49,6 +50,12 @@ class Order(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     
     
+    def full_name(self):
+        return f'{self.first_name} {self.last_name}'
+    
+    def full_address(self):
+        return f'{self.address_line_1} {self.address_line_2}'
+    
     def __str__(self):
         return self.first_name
     
@@ -67,7 +74,7 @@ class OrderProduct(models.Model):
     
     
     def __str__(self):
-        return self.product.prodcut_name
+        return self.product.product_name
     
     
 class Coupon(models.Model):
