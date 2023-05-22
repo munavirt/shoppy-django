@@ -93,6 +93,14 @@ class Banner(models.Model):
     def __str__(self):
         return self.banner_name
     
+    def get_related_products(self):
+        if self.is_available:
+            related_products = Product.objects.filter(
+                product_name__startswith=self.banner_name
+            )
+            return related_products
+        return None
+    
     
 class ProductGallery(models.Model):
     

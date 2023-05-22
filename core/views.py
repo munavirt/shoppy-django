@@ -19,13 +19,8 @@ from django.http import HttpResponse
 def home(request):
     products = Product.objects.all().filter(is_available=True)
     banners = Banner.objects.all().filter(is_available=True)
-    la_products = Product.objects.order_by('-created_date')[:10]
-    up_products = Product.objects.filter(created_date__gte=datetime.now(), is_available=True)
-
-    
-
-    
-    
+    la_products = Product.objects.order_by('-created_date')[:4]
+    up_products = Product.objects.filter(created_date__gte=datetime.now(), is_available=True)[:4]
     context = {
         'products':products,
         'banners' : banners,

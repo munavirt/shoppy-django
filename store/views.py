@@ -26,9 +26,12 @@ def category(request, category_slug=None):
         paged_products = paginator.get_page(page)
         product_count = products.count()
         
+    # banners = Banner.objects.filter(banner_name__in=[product.product_name for product in products])
         
     context = {
         'products':paged_products,
+        # 'banners' : banners,
+        'category' : category,
         'product_count': product_count,
     } 
     return render(request,'category.html',context)
