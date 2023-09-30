@@ -8,7 +8,8 @@ urlpatterns = [
     path('admin_product/', views.admin_product, name='admin_product'),
     path('admin_addProduct/',views.admin_addProduct,name='admin_addProduct'),
     
-    
+    path('admin_category',views.adminCategory,name='admin_category'),
+
     path('admin_messages',views.adminMessages,name='adminMessages'),
     path('delete_message/<int:id>',views.deleteMessage,name='deleteMessage'),
     path('reply_message',views.replyMessage,name='replyMessage'),

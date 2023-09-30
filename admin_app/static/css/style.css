@@ -1906,6 +1906,23 @@ ol {
 	color: #666666;
 }
 
+
+.custom-checkbox label {
+	color: white;
+	margin-bottom: 0;
+}
+
+.custom-checkbox .form-check-input {
+	margin-top: 0.2rem;
+}
+
+/* Change the text color for input fields */
+input[type="text"],
+input[type="number"],
+textarea {
+	color: white;
+}
+
 /*---------------------
   Shop Details
 -----------------------*/

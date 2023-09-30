@@ -26,7 +26,7 @@ from carts.views import _cart_id
 from carts.models import Cart, CartItem
 
 import io
-import weasyprint
+# import weasyprint
 
 
 def register(request):

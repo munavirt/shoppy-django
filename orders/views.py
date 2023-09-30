@@ -19,7 +19,7 @@ from django.views import View
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string, get_template
-from weasyprint import HTML
+# from weasyprint import HTML
 from io import BytesIO
 from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
@@ -28,7 +28,6 @@ from reportlab.lib.units import inch
 from twilio.rest import Client
 
 import io
-import weasyprint
 import requests
 from django.templatetags.static import static
 
@@ -180,23 +179,23 @@ def payments(request):
         'transID': payment.payment_id,
     }
     
-    account_sid = ('ACe6819c922225f393518734cfe07deebd')
-    auth_token = ('765ca030c76f610974fa611906791d37')
-    client = Client(account_sid, auth_token)
+    # account_sid = ('ACe6819c922225f393518734cfe07deebd')
+    # auth_token = ('765ca030c76f610974fa611906791d37')
+    # client = Client(account_sid, auth_token)
         
     print(request.user.first_name)
     print(payment.payment_id)
     
     
 
-    message = client.messages.create(
-                              body = f"Hello {request.user.first_name}, You have successfully ordered on our website.\n\nHere is your Payment ID: {payment.payment_id}\n\nIf you have any trouble, please contact us at 55munavirt@gmail.com.",
-                              from_='+12705173381',
-                              to='+916238142442'
-                          )
+    # message = client.messages.create(
+    #                           body = f"Hello {request.user.first_name}, You have successfully ordered on our website.\n\nHere is your Payment ID: {payment.payment_id}\n\nIf you have any trouble, please contact us at 55munavirt@gmail.com.",
+    #                           from_='+12705173381',
+    #                           to='+916238142442'
+    #                       )
     
     
-    print(message.sid)
+    # print(message.sid)
     
     return JsonResponse(data)
 
@@ -311,37 +310,37 @@ def order_complete(request):
 
 
 
-def order_export_pdf(request, order_number):
-    try:
-        order = Order.objects.get(order_number=order_number, is_ordered=True)
-        ordered_products = OrderProduct.objects.filter(order_id=order.id)
+# def order_export_pdf(request, order_number):
+#     try:
+#         order = Order.objects.get(order_number=order_number, is_ordered=True)
+#         ordered_products = OrderProduct.objects.filter(order_id=order.id)
 
-        subtotal = 0
-        for i in ordered_products:
-            subtotal += i.product_price * i.quantity
+#         subtotal = 0
+#         for i in ordered_products:
+#             subtotal += i.product_price * i.quantity
 
-        payment = Payment.objects.get(payment_id=order.payment.payment_id)
+#         payment = Payment.objects.get(payment_id=order.payment.payment_id)
 
-        context = {
-            'order': order,
-            'ordered_products': ordered_products,
-            'order_number': order_number,
-            'transID': payment.payment_id,
-            'payment': payment,
-            'subtotal': subtotal,
-            'css_file': static('css/main.css'),
-        }
+#         context = {
+#             'order': order,
+#             'ordered_products': ordered_products,
+#             'order_number': order_number,
+#             'transID': payment.payment_id,
+#             'payment': payment,
+#             'subtotal': subtotal,
+#             'css_file': static('css/main.css'),
+#         }
 
-        html_string = render_to_string('invoice_pdf.html', context)
-        html = weasyprint.HTML(string=html_string)
-        pdf_bytes = html.write_pdf()
+#         html_string = render_to_string('invoice_pdf.html', context)
+#         html = weasyprint.HTML(string=html_string)
+#         pdf_bytes = html.write_pdf()
 
-        response = HttpResponse(pdf_bytes, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename=invoice.pdf'
-        return response
+#         response = HttpResponse(pdf_bytes, content_type='application/pdf')
+#         response['Content-Disposition'] = f'attachment; filename=invoice.pdf'
+#         return response
 
-    except (Payment.DoesNotExist, Order.DoesNotExist):
-        return redirect('home')
+#     except (Payment.DoesNotExist, Order.DoesNotExist):
+#         return redirect('home')
 
 
 
