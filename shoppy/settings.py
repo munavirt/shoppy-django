@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
+
 from django.contrib.messages import constants as messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,13 +23,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 # SECRET_KEY = 'django-insecure-@x(%rulr^252c49iool=6f91z80gxa3=%h*7&cp3vhk(5q3lhy'
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = ('django-insecure-@x(%rulr^252c49iool=6f91z80gxa3=%h*7&cp3vhk(5q3lhy')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=True, cast=bool)
+DEBUG = True
 
 
-ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app','*']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -102,7 +102,8 @@ DATABASES = {
     }
 }
 
-WSGI_APPLICATION = 'vercel_app.wsgi.app'
+
+
 
 
 # Password validation
@@ -157,12 +158,12 @@ MESSAGE_TAGS = {
 }
 
 # SMTP configuration
-EMAIL_BACKEND = config('EMAIL_BACKEND')
-EMAIL_HOST = config('EMAIL_HOST')
-EMAIL_PORT = config('EMAIL_PORT', cast=int)
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+# EMAIL_BACKEND = config('EMAIL_BACKEND')
+# EMAIL_HOST = config('EMAIL_HOST')
+# EMAIL_PORT = config('EMAIL_PORT', cast=int)
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+# EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
 # SMTP configuration
 
 
