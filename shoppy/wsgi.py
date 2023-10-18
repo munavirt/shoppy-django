@@ -15,4 +15,8 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'shoppy.settings')
 
 application = get_wsgi_application()
 
+<<<<<<< HEAD
 
+=======
+app = application
+>>>>>>> 2706546bd0fbc3087bded44572a88ac005627f40
